@@ -27,18 +27,21 @@ void Client::connect()
 
         while (true) {
 
-            //Uso do disco
-            std::string hd = disc();
-            socket->write(hd.c_str());
-
-
-            socket->waitForBytesWritten(1000);
-
             //Uso de CPU
             std::string c = cpu();
             if(c.size() >= 1) socket->write(c.c_str());
 
             socket->waitForBytesWritten(1000);
+            socket->flush();
+
+            //Uso do disco
+//            std::string hd = disc();
+//            socket->write(hd.c_str());
+
+//            socket->waitForBytesWritten(1000);
+//            socket->flush();
+
+
 
             //Uso de memoria
             std::string mem = memory();
@@ -46,15 +49,18 @@ void Client::connect()
 
             //Dados de rede
              socket->waitForBytesWritten(1000);
+             socket->flush();
 
              network();
              socket->write(this->in.c_str());
 
              socket->waitForBytesWritten(1000);
+             socket->flush();
 
 
-//              socket->write(this->out.c_str());
-//              socket->waitForBytesWritten(1000);
+              socket->write(this->out.c_str());
+              socket->waitForBytesWritten(1000);
+              socket->flush();
 
             std::this_thread::sleep_for(std::chrono::milliseconds(30000));
 

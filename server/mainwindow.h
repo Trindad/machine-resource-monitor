@@ -2,7 +2,11 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QTabWidget>
 #include <string>
+#include "clientthread.h"
+
+Q_DECLARE_METATYPE(std::string);
 
 namespace Ui {
 class MainWindow;
@@ -16,14 +20,19 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 public slots:
-    void setCPULabel(std::string);
-    void setDiscLabel(std::string);
-    void setMemLabel(std::string);
-    void setInLabel(std::string);
-    void setOutLabel(std::string);
+    void setCPULabel(std::string,int);
+    void setDiscLabel(std::string,int);
+    void setMemLabel(std::string,int);
+    void setInLabel(std::string,int);
+    void setOutLabel(std::string,int);
+
+    void newTab(int,ClientThread*);
 
 private:
     Ui::MainWindow *ui;
+    int countClient;
 };
 
 #endif // MAINWINDOW_H
+
+

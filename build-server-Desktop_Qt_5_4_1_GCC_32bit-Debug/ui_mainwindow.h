@@ -17,6 +17,7 @@
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
+#include <QtWidgets/QTabWidget>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -36,6 +37,7 @@ public:
     QLabel *cpu;
     QLabel *mem;
     QLabel *disc;
+    QTabWidget *tab;
 
     void setupUi(QMainWindow *MainWindow)
     {
@@ -114,26 +116,26 @@ public:
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         label = new QLabel(centralWidget);
         label->setObjectName(QStringLiteral("label"));
-        label->setGeometry(QRect(60, 30, 91, 31));
+        label->setGeometry(QRect(60, 80, 91, 31));
         QFont font1;
         font1.setPointSize(30);
         label->setFont(font1);
         label->setStyleSheet(QStringLiteral("color: rgb(47, 116, 237)"));
         label_2 = new QLabel(centralWidget);
         label_2->setObjectName(QStringLiteral("label_2"));
-        label_2->setGeometry(QRect(240, 20, 171, 41));
+        label_2->setGeometry(QRect(240, 70, 171, 41));
         QFont font2;
         font2.setPointSize(28);
         label_2->setFont(font2);
         label_2->setStyleSheet(QStringLiteral("color:rgb(47, 116, 237)"));
         label_3 = new QLabel(centralWidget);
         label_3->setObjectName(QStringLiteral("label_3"));
-        label_3->setGeometry(QRect(500, 20, 151, 41));
+        label_3->setGeometry(QRect(500, 70, 151, 41));
         label_3->setFont(font1);
         label_3->setStyleSheet(QStringLiteral("color:rgb(47, 116, 237)"));
         groupBox = new QGroupBox(centralWidget);
         groupBox->setObjectName(QStringLiteral("groupBox"));
-        groupBox->setGeometry(QRect(60, 210, 651, 181));
+        groupBox->setGeometry(QRect(70, 190, 651, 181));
         QPalette palette1;
         palette1.setBrush(QPalette::Active, QPalette::WindowText, brush6);
         palette1.setBrush(QPalette::Active, QPalette::Text, brush6);
@@ -176,16 +178,25 @@ public:
         out->setStyleSheet(QStringLiteral("color:rgb(255, 255, 255)"));
         cpu = new QLabel(centralWidget);
         cpu->setObjectName(QStringLiteral("cpu"));
-        cpu->setGeometry(QRect(70, 80, 181, 41));
+        cpu->setGeometry(QRect(70, 130, 181, 41));
         cpu->setStyleSheet(QStringLiteral("color:rgb(255, 255, 255)"));
         mem = new QLabel(centralWidget);
         mem->setObjectName(QStringLiteral("mem"));
-        mem->setGeometry(QRect(290, 80, 181, 41));
+        mem->setGeometry(QRect(290, 130, 181, 41));
         mem->setStyleSheet(QStringLiteral("color:rgb(255, 255, 255)"));
         disc = new QLabel(centralWidget);
         disc->setObjectName(QStringLiteral("disc"));
-        disc->setGeometry(QRect(510, 80, 201, 41));
+        disc->setGeometry(QRect(510, 130, 201, 41));
         disc->setStyleSheet(QStringLiteral("color:rgb(255, 255, 255)"));
+        tab = new QTabWidget(centralWidget);
+        tab->setObjectName(QStringLiteral("tab"));
+        tab->setGeometry(QRect(0, 0, 771, 41));
+        tab->setStyleSheet(QLatin1String("QTabWidget::pane {\n"
+"background:#2c2c2c;\n"
+"border: none;\n"
+"border-bottom: 1px solid #111;\n"
+"}\n"
+""));
         MainWindow->setCentralWidget(centralWidget);
         label->raise();
         label_2->raise();
@@ -194,8 +205,12 @@ public:
         mem->raise();
         disc->raise();
         groupBox->raise();
+        tab->raise();
 
         retranslateUi(MainWindow);
+
+        tab->setCurrentIndex(-1);
+
 
         QMetaObject::connectSlotsByName(MainWindow);
     } // setupUi

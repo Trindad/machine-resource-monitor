@@ -50,13 +50,17 @@ OBJECTS_DIR   = ./
 
 SOURCES       = ../server/main.cpp \
 		../server/mainwindow.cpp \
-		../server/server.cpp moc_mainwindow.cpp \
-		moc_server.cpp
+		../server/server.cpp \
+		../server/clientthread.cpp moc_mainwindow.cpp \
+		moc_server.cpp \
+		moc_clientthread.cpp
 OBJECTS       = main.o \
 		mainwindow.o \
 		server.o \
+		clientthread.o \
 		moc_mainwindow.o \
-		moc_server.o
+		moc_server.o \
+		moc_clientthread.o
 DIST          = ../../../../Qt/5.4/gcc/mkspecs/features/spec_pre.prf \
 		../../../../Qt/5.4/gcc/mkspecs/common/shell-unix.conf \
 		../../../../Qt/5.4/gcc/mkspecs/common/unix.conf \
@@ -177,9 +181,11 @@ DIST          = ../../../../Qt/5.4/gcc/mkspecs/features/spec_pre.prf \
 		../../../../Qt/5.4/gcc/mkspecs/features/yacc.prf \
 		../../../../Qt/5.4/gcc/mkspecs/features/lex.prf \
 		../server/server.pro ../server/mainwindow.h \
-		../server/server.h ../server/main.cpp \
+		../server/server.h \
+		../server/clientthread.h ../server/main.cpp \
 		../server/mainwindow.cpp \
-		../server/server.cpp
+		../server/server.cpp \
+		../server/clientthread.cpp
 QMAKE_TARGET  = server
 DESTDIR       = #avoid trailing-slash linebreak
 TARGET        = server
@@ -473,8 +479,8 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents ../server/mainwindow.h ../server/server.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../server/main.cpp ../server/mainwindow.cpp ../server/server.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../server/mainwindow.h ../server/server.h ../server/clientthread.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../server/main.cpp ../server/mainwindow.cpp ../server/server.cpp ../server/clientthread.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../server/mainwindow.ui $(DISTDIR)/
 
 
@@ -498,9 +504,9 @@ check: first
 
 compiler_rcc_make_all:
 compiler_rcc_clean:
-compiler_moc_header_make_all: moc_mainwindow.cpp moc_server.cpp
+compiler_moc_header_make_all: moc_mainwindow.cpp moc_server.cpp moc_clientthread.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_mainwindow.cpp moc_server.cpp
+	-$(DEL_FILE) moc_mainwindow.cpp moc_server.cpp moc_clientthread.cpp
 moc_mainwindow.cpp: ../../../../Qt/5.4/gcc/include/QtWidgets/QMainWindow \
 		../../../../Qt/5.4/gcc/include/QtWidgets/qmainwindow.h \
 		../../../../Qt/5.4/gcc/include/QtWidgets/qwidget.h \
@@ -686,6 +692,81 @@ moc_server.cpp: ../../../../Qt/5.4/gcc/include/QtCore/QObject \
 		../server/server.h
 	/home/silvana/Qt/5.4/gcc/bin/moc $(DEFINES) -I/home/silvana/Qt/5.4/gcc/mkspecs/linux-g++ -I/home/silvana/Oitavo/Redes/socket2/server -I/home/silvana/Qt/5.4/gcc/include -I/home/silvana/Qt/5.4/gcc/include/QtWidgets -I/home/silvana/Qt/5.4/gcc/include/QtGui -I/home/silvana/Qt/5.4/gcc/include/QtNetwork -I/home/silvana/Qt/5.4/gcc/include/QtCore -I. ../server/server.h -o moc_server.cpp
 
+moc_clientthread.cpp: ../../../../Qt/5.4/gcc/include/QtCore/QThread \
+		../../../../Qt/5.4/gcc/include/QtCore/qthread.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qobject.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qobjectdefs.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qnamespace.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qglobal.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qconfig.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qfeatures.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qsystemdetection.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qprocessordetection.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qcompilerdetection.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qtypeinfo.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qtypetraits.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qsysinfo.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qlogging.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qflags.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qatomic.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qbasicatomic.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qatomic_bootstrap.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qgenericatomic.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qatomic_msvc.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qatomic_armv7.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qatomic_armv6.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qatomic_armv5.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qatomic_ia64.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qatomic_mips.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qatomic_x86.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qatomic_cxx11.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qatomic_gcc.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qatomic_unix.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qglobalstatic.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qmutex.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qnumeric.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qobjectdefs_impl.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qstring.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qchar.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qbytearray.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qrefcount.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qarraydata.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qstringbuilder.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qlist.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qalgorithms.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qiterator.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qbytearraylist.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qcoreevent.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qscopedpointer.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qmetatype.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qvarlengtharray.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qcontainerfwd.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qisenum.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qobject_impl.h \
+		../../../../Qt/5.4/gcc/include/QtNetwork/QTcpSocket \
+		../../../../Qt/5.4/gcc/include/QtNetwork/qtcpsocket.h \
+		../../../../Qt/5.4/gcc/include/QtNetwork/qabstractsocket.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qiodevice.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qdebug.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qhash.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qpair.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qmap.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qtextstream.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qlocale.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qvariant.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qstringlist.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qdatastream.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qregexp.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qstringmatcher.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qshareddata.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qvector.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qpoint.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qset.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qcontiguouscache.h \
+		../../../../Qt/5.4/gcc/include/QtCore/QDebug \
+		../server/clientthread.h
+	/home/silvana/Qt/5.4/gcc/bin/moc $(DEFINES) -I/home/silvana/Qt/5.4/gcc/mkspecs/linux-g++ -I/home/silvana/Oitavo/Redes/socket2/server -I/home/silvana/Qt/5.4/gcc/include -I/home/silvana/Qt/5.4/gcc/include/QtWidgets -I/home/silvana/Qt/5.4/gcc/include/QtGui -I/home/silvana/Qt/5.4/gcc/include/QtNetwork -I/home/silvana/Qt/5.4/gcc/include/QtCore -I. ../server/clientthread.h -o moc_clientthread.cpp
+
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
 compiler_uic_make_all: ui_mainwindow.h
@@ -816,7 +897,16 @@ main.o: ../server/main.cpp ../server/mainwindow.h \
 		../../../../Qt/5.4/gcc/include/QtCore/qeventloop.h \
 		../../../../Qt/5.4/gcc/include/QtWidgets/qdesktopwidget.h \
 		../../../../Qt/5.4/gcc/include/QtGui/qguiapplication.h \
-		../../../../Qt/5.4/gcc/include/QtGui/qinputmethod.h
+		../../../../Qt/5.4/gcc/include/QtGui/qinputmethod.h \
+		../server/server.h \
+		../../../../Qt/5.4/gcc/include/QtCore/QObject \
+		../../../../Qt/5.4/gcc/include/QtCore/QDebug \
+		../../../../Qt/5.4/gcc/include/QtNetwork/QTcpServer \
+		../../../../Qt/5.4/gcc/include/QtNetwork/qtcpserver.h \
+		../../../../Qt/5.4/gcc/include/QtNetwork/qabstractsocket.h \
+		../../../../Qt/5.4/gcc/include/QtNetwork/qhostaddress.h \
+		../../../../Qt/5.4/gcc/include/QtNetwork/QTcpSocket \
+		../../../../Qt/5.4/gcc/include/QtNetwork/qtcpsocket.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../server/main.cpp
 
 mainwindow.o: ../server/mainwindow.cpp ../server/mainwindow.h \
@@ -939,11 +1029,13 @@ mainwindow.o: ../server/mainwindow.cpp ../server/mainwindow.h \
 		../../../../Qt/5.4/gcc/include/QtGui/qinputmethod.h \
 		../../../../Qt/5.4/gcc/include/QtWidgets/QButtonGroup \
 		../../../../Qt/5.4/gcc/include/QtWidgets/qbuttongroup.h \
+		../../../../Qt/5.4/gcc/include/QtWidgets/QGroupBox \
+		../../../../Qt/5.4/gcc/include/QtWidgets/qgroupbox.h \
+		../../../../Qt/5.4/gcc/include/QtWidgets/qframe.h \
 		../../../../Qt/5.4/gcc/include/QtWidgets/QHeaderView \
 		../../../../Qt/5.4/gcc/include/QtWidgets/qheaderview.h \
 		../../../../Qt/5.4/gcc/include/QtWidgets/qabstractitemview.h \
 		../../../../Qt/5.4/gcc/include/QtWidgets/qabstractscrollarea.h \
-		../../../../Qt/5.4/gcc/include/QtWidgets/qframe.h \
 		../../../../Qt/5.4/gcc/include/QtCore/qabstractitemmodel.h \
 		../../../../Qt/5.4/gcc/include/QtCore/qitemselectionmodel.h \
 		../../../../Qt/5.4/gcc/include/QtWidgets/qabstractitemdelegate.h \
@@ -956,23 +1048,10 @@ mainwindow.o: ../server/mainwindow.cpp ../server/mainwindow.h \
 		../../../../Qt/5.4/gcc/include/QtWidgets/qstyle.h \
 		../../../../Qt/5.4/gcc/include/QtWidgets/qtabbar.h \
 		../../../../Qt/5.4/gcc/include/QtWidgets/qrubberband.h \
-		../../../../Qt/5.4/gcc/include/QtWidgets/QMenuBar \
-		../../../../Qt/5.4/gcc/include/QtWidgets/qmenubar.h \
-		../../../../Qt/5.4/gcc/include/QtWidgets/qmenu.h \
-		../../../../Qt/5.4/gcc/include/QtWidgets/QStatusBar \
-		../../../../Qt/5.4/gcc/include/QtWidgets/qstatusbar.h \
-		../../../../Qt/5.4/gcc/include/QtWidgets/QToolBar \
-		../../../../Qt/5.4/gcc/include/QtWidgets/qtoolbar.h \
+		../../../../Qt/5.4/gcc/include/QtWidgets/QLabel \
+		../../../../Qt/5.4/gcc/include/QtWidgets/qlabel.h \
 		../../../../Qt/5.4/gcc/include/QtWidgets/QWidget \
-		../server/server.h \
-		../../../../Qt/5.4/gcc/include/QtCore/QObject \
-		../../../../Qt/5.4/gcc/include/QtCore/QDebug \
-		../../../../Qt/5.4/gcc/include/QtNetwork/QTcpServer \
-		../../../../Qt/5.4/gcc/include/QtNetwork/qtcpserver.h \
-		../../../../Qt/5.4/gcc/include/QtNetwork/qabstractsocket.h \
-		../../../../Qt/5.4/gcc/include/QtNetwork/qhostaddress.h \
-		../../../../Qt/5.4/gcc/include/QtNetwork/QTcpSocket \
-		../../../../Qt/5.4/gcc/include/QtNetwork/qtcpsocket.h
+		../../../../Qt/5.4/gcc/include/QtCore/QDebug
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../server/mainwindow.cpp
 
 server.o: ../server/server.cpp ../server/server.h \
@@ -1052,11 +1131,89 @@ server.o: ../server/server.cpp ../server/server.h \
 		../../../../Qt/5.4/gcc/include/QtNetwork/qtcpsocket.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o server.o ../server/server.cpp
 
+clientthread.o: ../server/clientthread.cpp ../server/clientthread.h \
+		../../../../Qt/5.4/gcc/include/QtCore/QThread \
+		../../../../Qt/5.4/gcc/include/QtCore/qthread.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qobject.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qobjectdefs.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qnamespace.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qglobal.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qconfig.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qfeatures.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qsystemdetection.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qprocessordetection.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qcompilerdetection.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qtypeinfo.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qtypetraits.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qsysinfo.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qlogging.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qflags.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qatomic.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qbasicatomic.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qatomic_bootstrap.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qgenericatomic.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qatomic_msvc.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qatomic_armv7.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qatomic_armv6.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qatomic_armv5.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qatomic_ia64.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qatomic_mips.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qatomic_x86.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qatomic_cxx11.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qatomic_gcc.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qatomic_unix.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qglobalstatic.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qmutex.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qnumeric.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qobjectdefs_impl.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qstring.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qchar.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qbytearray.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qrefcount.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qarraydata.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qstringbuilder.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qlist.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qalgorithms.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qiterator.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qbytearraylist.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qcoreevent.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qscopedpointer.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qmetatype.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qvarlengtharray.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qcontainerfwd.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qisenum.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qobject_impl.h \
+		../../../../Qt/5.4/gcc/include/QtNetwork/QTcpSocket \
+		../../../../Qt/5.4/gcc/include/QtNetwork/qtcpsocket.h \
+		../../../../Qt/5.4/gcc/include/QtNetwork/qabstractsocket.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qiodevice.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qdebug.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qhash.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qpair.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qmap.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qtextstream.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qlocale.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qvariant.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qstringlist.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qdatastream.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qregexp.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qstringmatcher.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qshareddata.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qvector.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qpoint.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qset.h \
+		../../../../Qt/5.4/gcc/include/QtCore/qcontiguouscache.h \
+		../../../../Qt/5.4/gcc/include/QtCore/QDebug
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o clientthread.o ../server/clientthread.cpp
+
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp
 
 moc_server.o: moc_server.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_server.o moc_server.cpp
+
+moc_clientthread.o: moc_clientthread.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_clientthread.o moc_clientthread.cpp
 
 ####### Install
 

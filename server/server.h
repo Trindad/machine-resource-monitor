@@ -7,37 +7,25 @@
 #include <string>
 #include <vector>
 #include <sstream>
+#include <clientthread.h>
 
-class Server: public QObject
+class Server: public QTcpServer
 {
 Q_OBJECT
 public:
   explicit Server(QObject *parent = 0);
+  void startServer();
+  std::vector<ClientThread*> client;
 
 signals:
+       void clientConnect(int, ClientThread*);
 
-    void cpuChanged(std::string);
-    void memChanged(std::string);
-    void hdChanged(std::string);
-    void inChanged(std::string);
-    void outChanged(std::string);
-
-public slots:
-  void connection();
-
-  void setCpu(std::string);
-  void setMem(std::string);
-  void setHd(std::string);
-  void setIn(std::string);
-  void setOut(std::string);
+protected:
+    void incomingConnection(qintptr socketDescriptor);
 
 private:
   QTcpServer *server;
-  std::string cpu;
-  std::string hd;
-  std::string mem;
-  std::string in;
-  std::string out;
+
 };
 
 #endif // SERVER_H

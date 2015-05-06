@@ -14,9 +14,11 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    server.cpp
+    server.cpp \
+    clientthread.cpp
 
 HEADERS  += mainwindow.h \
-    server.h
+    server.h \
+    clientthread.h
 
 FORMS    += mainwindow.ui

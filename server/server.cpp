@@ -1,101 +1,56 @@
 #include "server.h"
+#include "clientthread.h"
 
 Server::Server(QObject *parent) :
-    QObject(parent)
+    QTcpServer(parent)
 {
-    server = new QTcpServer(this);
-    server->setMaxPendingConnections(200);
+//    server = new QTcpServer(this);
+//    server->setMaxPendingConnections(200);
 
-    connect(server, SIGNAL(newConnection()), this, SLOT(connection()));
+//    connect(server, SIGNAL(newConnection()), this, SLOT(connection()));
 
-    if(!server->listen(QHostAddress::Any, 32000))
+//    if(!server->listen(QHostAddress::Any, 32000))
+//    {
+//        qDebug() << "Server could not start!";
+//    }
+//    else
+//    {
+//        qDebug() << "Server started!";
+//    }
+}
+
+void Server::startServer()
+{
+    int port = 32000;
+
+    if(!this->listen(QHostAddress::Any, port))
     {
-        qDebug() << "Server could not start!";
+        qDebug() << "Could not start server";
     }
     else
     {
-        qDebug() << "Server started!";
+        qDebug() << "Listening to port " << port << "...";
     }
 }
 
-void Server::connection()
+
+void Server::incomingConnection(qintptr socketDescriptor)
 {
-    qDebug()<<"WTF";
-    QTcpSocket *socket = server->nextPendingConnection();
+    // We have a new connection
+    qDebug() << socketDescriptor << " Connecting...";
 
-//    socket->write("hello client\r\n");
-//        socket->flush();
+    // Every new connection will be run in a newly created thread
+    ClientThread *thread = new ClientThread(socketDescriptor, this);
 
-//        socket->waitForBytesWritten(3000);
+    // connect signal/slot
+    // once a thread is not needed, it will be beleted later
+    connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
 
-    while(true){
+    thread->index = client.size();
+    client.push_back(thread);
 
-         socket->waitForReadyRead(60000);
-// qDebug() << socket->readAll();
+    emit clientConnect(thread->index, thread);
 
-         QString t = QString(socket->readAll());
-         qDebug()<<t;
-         std::string s = t.toStdString();
-         int n = s.size();
-
-         if(s.find("cpu") != std::string::npos){
-             std::string newstr = s.substr(0,n-3);
-             qDebug() <<newstr.c_str();
-            setCpu(newstr);
-         }
-         else if(s.find("mem") != std::string::npos){
-            std::string newstr = s.substr(0,n-3);
-            qDebug() <<newstr.c_str();
-            setMem(newstr);
-         }
-         else if(s.find("disc") != std::string::npos){
-            std::string newstr = s.substr(0,n-4);
-            qDebug() <<newstr.c_str();
-            setHd(newstr);
-         }
-         else if(s.find("in") != std::string::npos){
-            std::string newstr = s.substr(0,n-2);
-            qDebug() <<newstr.c_str();
-            setIn(newstr);
-         }
-         else if(s.find("out") != std::string::npos){
-            std::string newstr = s.substr(0,n-3);
-            qDebug() <<newstr.c_str();
-            setOut(newstr);
-         }
-    }
-
-//    socket->close();
+    thread->start();
 }
 
-
-//void  Server::getCpu(){
-
-//    emit valueChanged( QString::fromStdString(this->cpu) );
-//}
-
-
-void Server::setCpu(std::string c){
-    this->cpu = c;
-    emit cpuChanged(c);
-}
-
-void Server::setMem(std::string m){
-    this->mem = m;
-    emit memChanged(m);
-}
-
-void Server::setHd(std::string h){
-    this->hd = h;
-    emit hdChanged(h);
-}
-
-void Server::setIn(std::string i){
-    this->in = i;
-    emit inChanged(i);
-}
-
-void Server::setOut(std::string o){
-    this->out = o;
-    emit outChanged(o);
-}
