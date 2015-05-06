@@ -21,48 +21,27 @@ void Client::connect()
 
         // send
 
-        socket->waitForReadyRead(3000);
-        qDebug() << "Reading: " << socket->bytesAvailable();
-        qDebug() << socket->readAll();
+//        socket->waitForReadyRead(3000);
+//        qDebug() << "Reading: " << socket->bytesAvailable();
+//        qDebug() << socket->readAll();
 
         while (true) {
 
-            //Uso de CPU
-            std::string c = cpu();
-            if(c.size() >= 1) socket->write(c.c_str());
 
-            socket->waitForBytesWritten(1000);
+            std::string c = cpu();
+            std::string hd = disc();
+            std::string mem = memory();
+            network();
+
+            std::string data = c+"$"+hd+"$"+mem+"$"+this->in+"$"+this->out+"$";
+
+            socket->write(data.c_str());
+
+
+            socket->waitForBytesWritten();
             socket->flush();
 
-            //Uso do disco
-//            std::string hd = disc();
-//            socket->write(hd.c_str());
-
-//            socket->waitForBytesWritten(1000);
-//            socket->flush();
-
-
-
-            //Uso de memoria
-            std::string mem = memory();
-            socket->write(mem.c_str());
-
-            //Dados de rede
-             socket->waitForBytesWritten(1000);
-             socket->flush();
-
-             network();
-             socket->write(this->in.c_str());
-
-             socket->waitForBytesWritten(1000);
-             socket->flush();
-
-
-              socket->write(this->out.c_str());
-              socket->waitForBytesWritten(1000);
-              socket->flush();
-
-            std::this_thread::sleep_for(std::chrono::milliseconds(30000));
+            std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
         }
 

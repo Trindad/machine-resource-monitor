@@ -3,7 +3,7 @@
 #include <QObject>
 #include <QDebug>
 #include <QTcpServer>
-#include <QTcpSocket>
+#include <QUdpSocket>
 #include <string>
 #include <vector>
 #include <sstream>

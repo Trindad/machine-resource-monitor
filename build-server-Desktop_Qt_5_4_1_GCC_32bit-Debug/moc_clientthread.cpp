@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_ClientThread_t {
-    QByteArrayData data[18];
-    char stringdata[177];
+    QByteArrayData data[19];
+    char stringdata[191];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -40,20 +40,22 @@ QT_MOC_LITERAL(7, 79, 10), // "memChanged"
 QT_MOC_LITERAL(8, 90, 9), // "hdChanged"
 QT_MOC_LITERAL(9, 100, 9), // "inChanged"
 QT_MOC_LITERAL(10, 110, 10), // "outChanged"
-QT_MOC_LITERAL(11, 121, 9), // "readyRead"
-QT_MOC_LITERAL(12, 131, 12), // "disconnected"
-QT_MOC_LITERAL(13, 144, 6), // "setCpu"
-QT_MOC_LITERAL(14, 151, 6), // "setMem"
-QT_MOC_LITERAL(15, 158, 5), // "setHd"
-QT_MOC_LITERAL(16, 164, 5), // "setIn"
-QT_MOC_LITERAL(17, 170, 6) // "setOut"
+QT_MOC_LITERAL(11, 121, 10), // "tabChanged"
+QT_MOC_LITERAL(12, 132, 9), // "readyRead"
+QT_MOC_LITERAL(13, 142, 15), // "disconnectedNow"
+QT_MOC_LITERAL(14, 158, 6), // "setCpu"
+QT_MOC_LITERAL(15, 165, 6), // "setMem"
+QT_MOC_LITERAL(16, 172, 5), // "setHd"
+QT_MOC_LITERAL(17, 178, 5), // "setIn"
+QT_MOC_LITERAL(18, 184, 6) // "setOut"
 
     },
     "ClientThread\0error\0\0QTcpSocket::SocketError\0"
     "socketerror\0cpuChanged\0std::string\0"
     "memChanged\0hdChanged\0inChanged\0"
-    "outChanged\0readyRead\0disconnected\0"
-    "setCpu\0setMem\0setHd\0setIn\0setOut"
+    "outChanged\0tabChanged\0readyRead\0"
+    "disconnectedNow\0setCpu\0setMem\0setHd\0"
+    "setIn\0setOut"
 };
 #undef QT_MOC_LITERAL
 
@@ -63,29 +65,30 @@ static const uint qt_meta_data_ClientThread[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      13,   14, // methods
+      14,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       6,       // signalCount
+       7,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,   79,    2, 0x06 /* Public */,
-       5,    2,   82,    2, 0x06 /* Public */,
-       7,    2,   87,    2, 0x06 /* Public */,
-       8,    2,   92,    2, 0x06 /* Public */,
-       9,    2,   97,    2, 0x06 /* Public */,
-      10,    2,  102,    2, 0x06 /* Public */,
+       1,    1,   84,    2, 0x06 /* Public */,
+       5,    2,   87,    2, 0x06 /* Public */,
+       7,    2,   92,    2, 0x06 /* Public */,
+       8,    2,   97,    2, 0x06 /* Public */,
+       9,    2,  102,    2, 0x06 /* Public */,
+      10,    2,  107,    2, 0x06 /* Public */,
+      11,    1,  112,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-      11,    0,  107,    2, 0x0a /* Public */,
-      12,    0,  108,    2, 0x0a /* Public */,
-      13,    1,  109,    2, 0x0a /* Public */,
-      14,    1,  112,    2, 0x0a /* Public */,
-      15,    1,  115,    2, 0x0a /* Public */,
-      16,    1,  118,    2, 0x0a /* Public */,
-      17,    1,  121,    2, 0x0a /* Public */,
+      12,    0,  115,    2, 0x0a /* Public */,
+      13,    0,  116,    2, 0x0a /* Public */,
+      14,    1,  117,    2, 0x0a /* Public */,
+      15,    1,  120,    2, 0x0a /* Public */,
+      16,    1,  123,    2, 0x0a /* Public */,
+      17,    1,  126,    2, 0x0a /* Public */,
+      18,    1,  129,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void, 0x80000000 | 3,    4,
@@ -94,6 +97,7 @@ static const uint qt_meta_data_ClientThread[] = {
     QMetaType::Void, 0x80000000 | 6, QMetaType::Int,    2,    2,
     QMetaType::Void, 0x80000000 | 6, QMetaType::Int,    2,    2,
     QMetaType::Void, 0x80000000 | 6, QMetaType::Int,    2,    2,
+    QMetaType::Void, QMetaType::Int,    2,
 
  // slots: parameters
     QMetaType::Void,
@@ -118,13 +122,14 @@ void ClientThread::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
         case 3: _t->hdChanged((*reinterpret_cast< std::string(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
         case 4: _t->inChanged((*reinterpret_cast< std::string(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
         case 5: _t->outChanged((*reinterpret_cast< std::string(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
-        case 6: _t->readyRead(); break;
-        case 7: _t->disconnected(); break;
-        case 8: _t->setCpu((*reinterpret_cast< std::string(*)>(_a[1]))); break;
-        case 9: _t->setMem((*reinterpret_cast< std::string(*)>(_a[1]))); break;
-        case 10: _t->setHd((*reinterpret_cast< std::string(*)>(_a[1]))); break;
-        case 11: _t->setIn((*reinterpret_cast< std::string(*)>(_a[1]))); break;
-        case 12: _t->setOut((*reinterpret_cast< std::string(*)>(_a[1]))); break;
+        case 6: _t->tabChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 7: _t->readyRead(); break;
+        case 8: _t->disconnectedNow(); break;
+        case 9: _t->setCpu((*reinterpret_cast< std::string(*)>(_a[1]))); break;
+        case 10: _t->setMem((*reinterpret_cast< std::string(*)>(_a[1]))); break;
+        case 11: _t->setHd((*reinterpret_cast< std::string(*)>(_a[1]))); break;
+        case 12: _t->setIn((*reinterpret_cast< std::string(*)>(_a[1]))); break;
+        case 13: _t->setOut((*reinterpret_cast< std::string(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -166,6 +171,12 @@ void ClientThread::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
                 *result = 5;
             }
         }
+        {
+            typedef void (ClientThread::*_t)(int );
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&ClientThread::tabChanged)) {
+                *result = 6;
+            }
+        }
     }
 }
 
@@ -194,13 +205,13 @@ int ClientThread::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 13)
+        if (_id < 14)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 13;
+        _id -= 14;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 13)
+        if (_id < 14)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 13;
+        _id -= 14;
     }
     return _id;
 }
@@ -245,5 +256,12 @@ void ClientThread::outChanged(std::string _t1, int _t2)
 {
     void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)), const_cast<void*>(reinterpret_cast<const void*>(&_t2)) };
     QMetaObject::activate(this, &staticMetaObject, 5, _a);
+}
+
+// SIGNAL 6
+void ClientThread::tabChanged(int _t1)
+{
+    void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 6, _a);
 }
 QT_END_MOC_NAMESPACE

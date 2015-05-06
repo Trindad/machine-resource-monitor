@@ -26,7 +26,7 @@ void ClientThread::run()
     //        This makes the slot to be invoked immediately, when the signal is emitted.
 
     connect(socket, SIGNAL(readyRead()), this, SLOT(readyRead()), Qt::DirectConnection);
-    connect(socket, SIGNAL(disconnected()), this, SLOT(disconnected()));
+    connect(socket, SIGNAL(disconnected()), this, SLOT(disconnectedNow()), Qt::DirectConnection);
 
     // We'll have multiple clients, we want to know which is which
     qDebug() << socketDescriptor << " Client connected";
@@ -41,50 +41,59 @@ void ClientThread::run()
 void ClientThread::readyRead()
 {
 
-    while(true){
+    while(socket->isOpen()){
 
          socket->waitForReadyRead(60000);
 
          QString t = QString(socket->readAll());
-         qDebug()<<t;
+//         qDebug()<<t;
          std::string s = t.toStdString();
-         int n = s.size();
 
-         if(s.find("cpu") != std::string::npos){
-             std::string newstr = s.substr(0,n-3);
-             qDebug() <<newstr.c_str();
-            setCpu(newstr);
+         std::vector<std::string> data;
+
+         data = split(s,'$');
+
+         for(unsigned int i = 0;i < data.size();i++){
+//             qDebug()<<data[i].c_str();
+             if(data[i].find("cpu") != std::string::npos){
+                 std::string newstr = data[i].substr(0,data[i].size()-3);
+//                 qDebug() <<newstr.c_str();
+                setCpu(newstr);
+             }
+             else if(data[i].find("mem") != std::string::npos){
+                std::string newstr = data[i].substr(0,data[i].size()-3);
+//                qDebug() <<newstr.c_str();
+                setMem(newstr);
+             }
+             else if(data[i].find("disc") != std::string::npos){
+                std::string newstr = data[i].substr(0,data[i].size()-4);
+//                qDebug() <<newstr.c_str();
+                setHd(newstr);
+             }
+             else if(data[i].find("in") != std::string::npos){
+                std::string newstr = data[i].substr(0,data[i].size()-2);
+//                qDebug() <<newstr.c_str();
+                setIn(newstr);
+             }
+             else if(data[i].find("out") != std::string::npos){
+                std::string newstr = data[i].substr(0,data[i].size()-3);
+//                qDebug() <<newstr.c_str();
+                setOut(newstr);
+             }
          }
-         else if(s.find("mem") != std::string::npos){
-            std::string newstr = s.substr(0,n-3);
-            qDebug() <<newstr.c_str();
-            setMem(newstr);
-         }
-         else if(s.find("disc") != std::string::npos){
-            std::string newstr = s.substr(0,n-4);
-            qDebug() <<newstr.c_str();
-            setHd(newstr);
-         }
-         else if(s.find("in") != std::string::npos){
-            std::string newstr = s.substr(0,n-2);
-            qDebug() <<newstr.c_str();
-            setIn(newstr);
-         }
-         else if(s.find("out") != std::string::npos){
-            std::string newstr = s.substr(0,n-3);
-            qDebug() <<newstr.c_str();
-            setOut(newstr);
-         }
+
+
+
     }
 
 }
 
-void ClientThread::disconnected()
+void ClientThread::disconnectedNow()
 {
     qDebug() << socketDescriptor << " Disconnected";
-
-
+    socket->close();
     socket->deleteLater();
+    emit tabChanged(this->index);
     exit(0);
 }
 
@@ -113,4 +122,21 @@ void ClientThread::setOut(std::string o){
     emit outChanged(o, this->index);
 }
 
+
+std::vector<std::string> & ClientThread::split(const std::string &s, char delim, std::vector<std::string> &elems) {
+    std::stringstream ss(s);
+    std::string item;
+    while (std::getline(ss, item, delim)) {
+        if(item.size() >= 1)
+            elems.push_back(item);
+    }
+    return elems;
+}
+
+
+std::vector<std::string> ClientThread::split(const std::string &s, char delim) {
+    std::vector<std::string> elems;
+    split(s, delim, elems);
+    return elems;
+}
 

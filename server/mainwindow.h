@@ -18,6 +18,9 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow(QWidget *parent = 0);
+    std::vector<std::string> & split(const std::string &,char, std::vector<std::string> &);
+    std::vector<std::string> split(const std::string &,char);
+
     ~MainWindow();
 public slots:
     void setCPULabel(std::string,int);
@@ -25,6 +28,7 @@ public slots:
     void setMemLabel(std::string,int);
     void setInLabel(std::string,int);
     void setOutLabel(std::string,int);
+    void removeTab(int);
 
     void newTab(int,ClientThread*);
 

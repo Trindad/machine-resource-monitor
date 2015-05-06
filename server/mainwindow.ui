@@ -759,6 +759,18 @@ background:#2c2c2c;
 border: none;
 border-bottom: 1px solid #111;
 }
+QTabBar {
+border: none;
+}
+QTabBar::tab{
+color: #888;
+background: #303030;
+}
+
+QTabBar::tab:selected{
+color:#e0e0e0;
+background: #555;
+}
 </string>
     </property>
     <property name="currentIndex">

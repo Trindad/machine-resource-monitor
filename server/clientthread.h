@@ -5,12 +5,15 @@
 #include <QTcpSocket>
 #include <QDebug>
 #include <string>
+#include <sstream>
 
 class ClientThread : public QThread
 {
     Q_OBJECT
 public:
     explicit ClientThread(qintptr ID, QObject *parent = 0);
+    std::vector<std::string> & split(const std::string &,char, std::vector<std::string> &);
+    std::vector<std::string> split(const std::string &,char);
     int index;
 
     void run();
@@ -22,10 +25,11 @@ signals:
     void hdChanged(std::string,int);
     void inChanged(std::string,int);
     void outChanged(std::string,int);
+    void tabChanged(int);
 
 public slots:
     void readyRead();
-    void disconnected();
+    void disconnectedNow();
     void setCpu(std::string);
     void setMem(std::string);
     void setHd(std::string);

@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_MainWindow_t {
-    QByteArrayData data[10];
-    char stringdata[105];
+    QByteArrayData data[11];
+    char stringdata[115];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -37,13 +37,14 @@ QT_MOC_LITERAL(4, 36, 12), // "setDiscLabel"
 QT_MOC_LITERAL(5, 49, 11), // "setMemLabel"
 QT_MOC_LITERAL(6, 61, 10), // "setInLabel"
 QT_MOC_LITERAL(7, 72, 11), // "setOutLabel"
-QT_MOC_LITERAL(8, 84, 6), // "newTab"
-QT_MOC_LITERAL(9, 91, 13) // "ClientThread*"
+QT_MOC_LITERAL(8, 84, 9), // "removeTab"
+QT_MOC_LITERAL(9, 94, 6), // "newTab"
+QT_MOC_LITERAL(10, 101, 13) // "ClientThread*"
 
     },
     "MainWindow\0setCPULabel\0\0std::string\0"
     "setDiscLabel\0setMemLabel\0setInLabel\0"
-    "setOutLabel\0newTab\0ClientThread*"
+    "setOutLabel\0removeTab\0newTab\0ClientThread*"
 };
 #undef QT_MOC_LITERAL
 
@@ -53,7 +54,7 @@ static const uint qt_meta_data_MainWindow[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       6,   14, // methods
+       7,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -61,12 +62,13 @@ static const uint qt_meta_data_MainWindow[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    2,   44,    2, 0x0a /* Public */,
-       4,    2,   49,    2, 0x0a /* Public */,
-       5,    2,   54,    2, 0x0a /* Public */,
-       6,    2,   59,    2, 0x0a /* Public */,
-       7,    2,   64,    2, 0x0a /* Public */,
-       8,    2,   69,    2, 0x0a /* Public */,
+       1,    2,   49,    2, 0x0a /* Public */,
+       4,    2,   54,    2, 0x0a /* Public */,
+       5,    2,   59,    2, 0x0a /* Public */,
+       6,    2,   64,    2, 0x0a /* Public */,
+       7,    2,   69,    2, 0x0a /* Public */,
+       8,    1,   74,    2, 0x0a /* Public */,
+       9,    2,   77,    2, 0x0a /* Public */,
 
  // slots: parameters
     QMetaType::Void, 0x80000000 | 3, QMetaType::Int,    2,    2,
@@ -74,7 +76,8 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void, 0x80000000 | 3, QMetaType::Int,    2,    2,
     QMetaType::Void, 0x80000000 | 3, QMetaType::Int,    2,    2,
     QMetaType::Void, 0x80000000 | 3, QMetaType::Int,    2,    2,
-    QMetaType::Void, QMetaType::Int, 0x80000000 | 9,    2,    2,
+    QMetaType::Void, QMetaType::Int,    2,
+    QMetaType::Void, QMetaType::Int, 0x80000000 | 10,    2,    2,
 
        0        // eod
 };
@@ -89,7 +92,8 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 2: _t->setMemLabel((*reinterpret_cast< std::string(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
         case 3: _t->setInLabel((*reinterpret_cast< std::string(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
         case 4: _t->setOutLabel((*reinterpret_cast< std::string(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
-        case 5: _t->newTab((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< ClientThread*(*)>(_a[2]))); break;
+        case 5: _t->removeTab((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 6: _t->newTab((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< ClientThread*(*)>(_a[2]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
@@ -130,7 +134,7 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
                 *reinterpret_cast<int*>(_a[0]) = qRegisterMetaType< std::string >(); break;
             }
             break;
-        case 5:
+        case 6:
             switch (*reinterpret_cast<int*>(_a[1])) {
             default: *reinterpret_cast<int*>(_a[0]) = -1; break;
             case 1:
@@ -166,13 +170,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 6)
+        if (_id < 7)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 6;
+        _id -= 7;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 6)
+        if (_id < 7)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 6;
+        _id -= 7;
     }
     return _id;
 }

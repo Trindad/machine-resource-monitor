@@ -196,6 +196,18 @@ public:
 "border: none;\n"
 "border-bottom: 1px solid #111;\n"
 "}\n"
+"QTabBar {\n"
+"border: none;\n"
+"}\n"
+"QTabBar::tab{\n"
+"color: #888;\n"
+"background: #303030;\n"
+"}\n"
+"\n"
+"QTabBar::tab:selected{\n"
+"color:#e0e0e0;\n"
+"background: #555;\n"
+"}\n"
 ""));
         MainWindow->setCentralWidget(centralWidget);
         label->raise();
