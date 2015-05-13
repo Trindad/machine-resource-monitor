@@ -21,7 +21,7 @@ void Client::connect()
 
         // send
 
-//        socket->waitForReadyRead(3000);
+//          socket->waitForReadyRead(3000);
 //        qDebug() << "Reading: " << socket->bytesAvailable();
 //        qDebug() << socket->readAll();
 
@@ -34,12 +34,12 @@ void Client::connect()
             network();
 
             std::string data = c+"$"+hd+"$"+mem+"$"+this->in+"$"+this->out+"$";
-
+            qDebug()<<data.c_str();
             socket->write(data.c_str());
 
 
-            socket->waitForBytesWritten();
-            socket->flush();
+            socket->waitForBytesWritten(3000);
+
 
             std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 

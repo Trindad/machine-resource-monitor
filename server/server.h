@@ -8,6 +8,8 @@
 #include <vector>
 #include <sstream>
 #include <clientthread.h>
+#include <chrono>
+#include <ctime>
 
 class Server: public QTcpServer
 {

@@ -14,7 +14,7 @@ CC            = gcc
 CXX           = g++
 DEFINES       = -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -g -Wall -W -D_REENTRANT -fPIE $(DEFINES)
-CXXFLAGS      = -pipe -g -Wall -W -D_REENTRANT -fPIE $(DEFINES)
+CXXFLAGS      = -pipe -g -std=c++0x -Wall -W -D_REENTRANT -fPIE $(DEFINES)
 INCPATH       = -I../server -I. -I../../../../Qt/5.4/gcc/include -I../../../../Qt/5.4/gcc/include/QtWidgets -I../../../../Qt/5.4/gcc/include/QtGui -I../../../../Qt/5.4/gcc/include/QtNetwork -I../../../../Qt/5.4/gcc/include/QtCore -I. -I. -I../../../../Qt/5.4/gcc/mkspecs/linux-g++
 QMAKE         = /home/silvana/Qt/5.4/gcc/bin/qmake
 DEL_FILE      = rm -f
@@ -169,6 +169,7 @@ DIST          = ../../../../Qt/5.4/gcc/mkspecs/features/spec_pre.prf \
 		../../../../Qt/5.4/gcc/mkspecs/features/default_pre.prf \
 		../../../../Qt/5.4/gcc/mkspecs/features/resolve_config.prf \
 		../../../../Qt/5.4/gcc/mkspecs/features/default_post.prf \
+		../../../../Qt/5.4/gcc/mkspecs/features/c++11.prf \
 		../../../../Qt/5.4/gcc/mkspecs/features/warn_on.prf \
 		../../../../Qt/5.4/gcc/mkspecs/features/qt.prf \
 		../../../../Qt/5.4/gcc/mkspecs/features/resources.prf \
@@ -324,6 +325,7 @@ Makefile: ../server/server.pro ../../../../Qt/5.4/gcc/mkspecs/linux-g++/qmake.co
 		../../../../Qt/5.4/gcc/mkspecs/features/default_pre.prf \
 		../../../../Qt/5.4/gcc/mkspecs/features/resolve_config.prf \
 		../../../../Qt/5.4/gcc/mkspecs/features/default_post.prf \
+		../../../../Qt/5.4/gcc/mkspecs/features/c++11.prf \
 		../../../../Qt/5.4/gcc/mkspecs/features/warn_on.prf \
 		../../../../Qt/5.4/gcc/mkspecs/features/qt.prf \
 		../../../../Qt/5.4/gcc/mkspecs/features/resources.prf \
@@ -449,6 +451,7 @@ Makefile: ../server/server.pro ../../../../Qt/5.4/gcc/mkspecs/linux-g++/qmake.co
 ../../../../Qt/5.4/gcc/mkspecs/features/default_pre.prf:
 ../../../../Qt/5.4/gcc/mkspecs/features/resolve_config.prf:
 ../../../../Qt/5.4/gcc/mkspecs/features/default_post.prf:
+../../../../Qt/5.4/gcc/mkspecs/features/c++11.prf:
 ../../../../Qt/5.4/gcc/mkspecs/features/warn_on.prf:
 ../../../../Qt/5.4/gcc/mkspecs/features/qt.prf:
 ../../../../Qt/5.4/gcc/mkspecs/features/resources.prf:
@@ -612,6 +615,14 @@ moc_mainwindow.cpp: ../../../../Qt/5.4/gcc/include/QtWidgets/QMainWindow \
 		../../../../Qt/5.4/gcc/include/QtGui/qtouchdevice.h \
 		../../../../Qt/5.4/gcc/include/QtWidgets/qtabwidget.h \
 		../../../../Qt/5.4/gcc/include/QtGui/qicon.h \
+		../../../../Qt/5.4/gcc/include/QtWidgets/QTabWidget \
+		../server/clientthread.h \
+		../../../../Qt/5.4/gcc/include/QtCore/QThread \
+		../../../../Qt/5.4/gcc/include/QtCore/qthread.h \
+		../../../../Qt/5.4/gcc/include/QtNetwork/QTcpSocket \
+		../../../../Qt/5.4/gcc/include/QtNetwork/qtcpsocket.h \
+		../../../../Qt/5.4/gcc/include/QtNetwork/qabstractsocket.h \
+		../../../../Qt/5.4/gcc/include/QtCore/QDebug \
 		../server/mainwindow.h
 	/home/silvana/Qt/5.4/gcc/bin/moc $(DEFINES) -I/home/silvana/Qt/5.4/gcc/mkspecs/linux-g++ -I/home/silvana/Oitavo/Redes/socket2/server -I/home/silvana/Qt/5.4/gcc/include -I/home/silvana/Qt/5.4/gcc/include/QtWidgets -I/home/silvana/Qt/5.4/gcc/include/QtGui -I/home/silvana/Qt/5.4/gcc/include/QtNetwork -I/home/silvana/Qt/5.4/gcc/include/QtCore -I. ../server/mainwindow.h -o moc_mainwindow.cpp
 
@@ -687,6 +698,11 @@ moc_server.cpp: ../../../../Qt/5.4/gcc/include/QtCore/QObject \
 		../../../../Qt/5.4/gcc/include/QtNetwork/qtcpserver.h \
 		../../../../Qt/5.4/gcc/include/QtNetwork/qabstractsocket.h \
 		../../../../Qt/5.4/gcc/include/QtNetwork/qhostaddress.h \
+		../../../../Qt/5.4/gcc/include/QtNetwork/QUdpSocket \
+		../../../../Qt/5.4/gcc/include/QtNetwork/qudpsocket.h \
+		../server/clientthread.h \
+		../../../../Qt/5.4/gcc/include/QtCore/QThread \
+		../../../../Qt/5.4/gcc/include/QtCore/qthread.h \
 		../../../../Qt/5.4/gcc/include/QtNetwork/QTcpSocket \
 		../../../../Qt/5.4/gcc/include/QtNetwork/qtcpsocket.h \
 		../server/server.h
@@ -891,6 +907,14 @@ main.o: ../server/main.cpp ../server/mainwindow.h \
 		../../../../Qt/5.4/gcc/include/QtGui/qtouchdevice.h \
 		../../../../Qt/5.4/gcc/include/QtWidgets/qtabwidget.h \
 		../../../../Qt/5.4/gcc/include/QtGui/qicon.h \
+		../../../../Qt/5.4/gcc/include/QtWidgets/QTabWidget \
+		../server/clientthread.h \
+		../../../../Qt/5.4/gcc/include/QtCore/QThread \
+		../../../../Qt/5.4/gcc/include/QtCore/qthread.h \
+		../../../../Qt/5.4/gcc/include/QtNetwork/QTcpSocket \
+		../../../../Qt/5.4/gcc/include/QtNetwork/qtcpsocket.h \
+		../../../../Qt/5.4/gcc/include/QtNetwork/qabstractsocket.h \
+		../../../../Qt/5.4/gcc/include/QtCore/QDebug \
 		../../../../Qt/5.4/gcc/include/QtWidgets/QApplication \
 		../../../../Qt/5.4/gcc/include/QtWidgets/qapplication.h \
 		../../../../Qt/5.4/gcc/include/QtCore/qcoreapplication.h \
@@ -900,13 +924,11 @@ main.o: ../server/main.cpp ../server/mainwindow.h \
 		../../../../Qt/5.4/gcc/include/QtGui/qinputmethod.h \
 		../server/server.h \
 		../../../../Qt/5.4/gcc/include/QtCore/QObject \
-		../../../../Qt/5.4/gcc/include/QtCore/QDebug \
 		../../../../Qt/5.4/gcc/include/QtNetwork/QTcpServer \
 		../../../../Qt/5.4/gcc/include/QtNetwork/qtcpserver.h \
-		../../../../Qt/5.4/gcc/include/QtNetwork/qabstractsocket.h \
 		../../../../Qt/5.4/gcc/include/QtNetwork/qhostaddress.h \
-		../../../../Qt/5.4/gcc/include/QtNetwork/QTcpSocket \
-		../../../../Qt/5.4/gcc/include/QtNetwork/qtcpsocket.h
+		../../../../Qt/5.4/gcc/include/QtNetwork/QUdpSocket \
+		../../../../Qt/5.4/gcc/include/QtNetwork/qudpsocket.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../server/main.cpp
 
 mainwindow.o: ../server/mainwindow.cpp ../server/mainwindow.h \
@@ -1015,6 +1037,14 @@ mainwindow.o: ../server/mainwindow.cpp ../server/mainwindow.h \
 		../../../../Qt/5.4/gcc/include/QtGui/qtouchdevice.h \
 		../../../../Qt/5.4/gcc/include/QtWidgets/qtabwidget.h \
 		../../../../Qt/5.4/gcc/include/QtGui/qicon.h \
+		../../../../Qt/5.4/gcc/include/QtWidgets/QTabWidget \
+		../server/clientthread.h \
+		../../../../Qt/5.4/gcc/include/QtCore/QThread \
+		../../../../Qt/5.4/gcc/include/QtCore/qthread.h \
+		../../../../Qt/5.4/gcc/include/QtNetwork/QTcpSocket \
+		../../../../Qt/5.4/gcc/include/QtNetwork/qtcpsocket.h \
+		../../../../Qt/5.4/gcc/include/QtNetwork/qabstractsocket.h \
+		../../../../Qt/5.4/gcc/include/QtCore/QDebug \
 		ui_mainwindow.h \
 		../../../../Qt/5.4/gcc/include/QtCore/QVariant \
 		../../../../Qt/5.4/gcc/include/QtWidgets/QAction \
@@ -1050,8 +1080,7 @@ mainwindow.o: ../server/mainwindow.cpp ../server/mainwindow.h \
 		../../../../Qt/5.4/gcc/include/QtWidgets/qrubberband.h \
 		../../../../Qt/5.4/gcc/include/QtWidgets/QLabel \
 		../../../../Qt/5.4/gcc/include/QtWidgets/qlabel.h \
-		../../../../Qt/5.4/gcc/include/QtWidgets/QWidget \
-		../../../../Qt/5.4/gcc/include/QtCore/QDebug
+		../../../../Qt/5.4/gcc/include/QtWidgets/QWidget
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../server/mainwindow.cpp
 
 server.o: ../server/server.cpp ../server/server.h \
@@ -1127,6 +1156,11 @@ server.o: ../server/server.cpp ../server/server.h \
 		../../../../Qt/5.4/gcc/include/QtNetwork/qtcpserver.h \
 		../../../../Qt/5.4/gcc/include/QtNetwork/qabstractsocket.h \
 		../../../../Qt/5.4/gcc/include/QtNetwork/qhostaddress.h \
+		../../../../Qt/5.4/gcc/include/QtNetwork/QUdpSocket \
+		../../../../Qt/5.4/gcc/include/QtNetwork/qudpsocket.h \
+		../server/clientthread.h \
+		../../../../Qt/5.4/gcc/include/QtCore/QThread \
+		../../../../Qt/5.4/gcc/include/QtCore/qthread.h \
 		../../../../Qt/5.4/gcc/include/QtNetwork/QTcpSocket \
 		../../../../Qt/5.4/gcc/include/QtNetwork/qtcpsocket.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o server.o ../server/server.cpp
@@ -1203,7 +1237,9 @@ clientthread.o: ../server/clientthread.cpp ../server/clientthread.h \
 		../../../../Qt/5.4/gcc/include/QtCore/qpoint.h \
 		../../../../Qt/5.4/gcc/include/QtCore/qset.h \
 		../../../../Qt/5.4/gcc/include/QtCore/qcontiguouscache.h \
-		../../../../Qt/5.4/gcc/include/QtCore/QDebug
+		../../../../Qt/5.4/gcc/include/QtCore/QDebug \
+		../../../../Qt/5.4/gcc/include/QtNetwork/QHostAddress \
+		../../../../Qt/5.4/gcc/include/QtNetwork/qhostaddress.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o clientthread.o ../server/clientthread.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 

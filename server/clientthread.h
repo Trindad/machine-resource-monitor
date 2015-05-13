@@ -5,7 +5,9 @@
 #include <QTcpSocket>
 #include <QDebug>
 #include <string>
+#include <fstream>
 #include <sstream>
+#include <iostream>
 
 class ClientThread : public QThread
 {
@@ -14,6 +16,7 @@ public:
     explicit ClientThread(qintptr ID, QObject *parent = 0);
     std::vector<std::string> & split(const std::string &,char, std::vector<std::string> &);
     std::vector<std::string> split(const std::string &,char);
+    std::string returnCurrentTimeAndDate();
     int index;
 
     void run();

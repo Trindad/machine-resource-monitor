@@ -1,4 +1,6 @@
 #include "clientthread.h"
+#include <QHostAddress>
+
 
 ClientThread::ClientThread(qintptr ID, QObject *parent) :
     QThread(parent)
@@ -38,16 +40,54 @@ void ClientThread::run()
     exec();
 }
 
+
+std::string ClientThread::returnCurrentTimeAndDate()
+{
+    time_t rawtime;
+    struct tm * timeinfo;
+    char buffer [80];
+
+    time (&rawtime);
+    timeinfo = localtime (&rawtime);
+
+    strftime (buffer,80,"%d_%m_%Y_%T",timeinfo);
+
+    return buffer;
+}
+
+
 void ClientThread::readyRead()
 {
 
+    QHostAddress addr = socket->peerAddress();
+    std::string ip = addr.toString().toStdString();
+    qDebug() << "IP "<<ip.c_str();
+
+    std::fstream file;
+
+    std::string fileName = ip+returnCurrentTimeAndDate();
+
+    file.open(fileName);
+
+//    if (file.is_open())
+//    {
+
+//        qDebug()<<"Arquivo será gravado";
+
+//    }
+//    else
+//    {
+//         qDebug()<<"Erro ao abrir arquivo";
+//    }
+
     while(socket->isOpen()){
 
-         socket->waitForReadyRead(60000);
-
          QString t = QString(socket->readAll());
-//         qDebug()<<t;
+         qDebug()<<t;
          std::string s = t.toStdString();
+         file.open(fileName, std::fstream::app|std::fstream::out );
+         file<<s+'\n';
+         file.close();
 
          std::vector<std::string> data;
 
@@ -83,9 +123,11 @@ void ClientThread::readyRead()
          }
 
 
+         socket->waitForReadyRead(3000);
 
     }
 
+    file.close();
 }
 
 void ClientThread::disconnectedNow()

@@ -19,13 +19,13 @@ MainWindow::~MainWindow()
 
 void MainWindow::setCPULabel(std::string s,int index) {
 
-    qDebug()<<"Entra aqui";
+
     std::string str = ui->tab->tabText(ui->tab->currentIndex()).toStdString();
-    qDebug()<<"Entra aqui client "<<str.c_str();
+
     std::vector<std::string> client = split(str,' ');
-    qDebug()<<"Entra aqui 2";
+
     int indexClient = atoi(client[client.size()-1].c_str())-1;
-    qDebug()<<"Entra aqui 3";
+
 
     if(indexClient != index)
     {
