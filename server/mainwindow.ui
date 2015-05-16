@@ -494,7 +494,7 @@
      <string notr="true">color:rgb(47, 116, 237)</string>
     </property>
     <property name="text">
-     <string>Disc</string>
+     <string>Disk</string>
     </property>
    </widget>
    <widget class="QGroupBox" name="groupBox">

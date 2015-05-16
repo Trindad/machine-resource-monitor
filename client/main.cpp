@@ -1,5 +1,6 @@
 #include <QCoreApplication>
 #include "client.h"
+#include <QtPlugin>
 
 int main(int argc, char *argv[])
 {

@@ -17,13 +17,6 @@ void Client::connect()
 
     if(socket->waitForConnected(3000))
     {
-        qDebug() << "Connected!";
-
-        // send
-
-//          socket->waitForReadyRead(3000);
-//        qDebug() << "Reading: " << socket->bytesAvailable();
-//        qDebug() << socket->readAll();
 
         while (true) {
 
@@ -34,7 +27,7 @@ void Client::connect()
             network();
 
             std::string data = c+"$"+hd+"$"+mem+"$"+this->in+"$"+this->out+"$";
-            qDebug()<<data.c_str();
+           // qDebug()<<data.c_str();
             socket->write(data.c_str());
 
 
@@ -48,11 +41,7 @@ void Client::connect()
 
 //        socket->close();
     }
-    else
-    {
-        qDebug() << "Not connected!";
-        qDebug() << socket->error();
-    }
+
 
 }
 
@@ -129,7 +118,7 @@ std::string Client::disc() {
 //                           std::string temp = s[i];
 //                           qDebug() << temp.c_str();
 //                       }
-//                       qDebug() << buff;
+                     qDebug() << buff;
            }
 
     }
@@ -161,6 +150,7 @@ std::string Client::memory() {
 
                s = split(line,' ');
            }
+            qDebug() << buff;
 
     }
 
@@ -196,6 +186,7 @@ void Client::network() {
                s = split(line,' ');
                break;
            }
+            qDebug() << buff;
 
     }
 

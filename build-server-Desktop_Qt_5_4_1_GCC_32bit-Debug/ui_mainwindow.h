@@ -232,7 +232,7 @@ public:
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "Machine Resource Monitor", 0));
         label->setText(QApplication::translate("MainWindow", "CPU", 0));
         label_2->setText(QApplication::translate("MainWindow", "Memory", 0));
-        label_3->setText(QApplication::translate("MainWindow", "Disc", 0));
+        label_3->setText(QApplication::translate("MainWindow", "Disk", 0));
         groupBox->setTitle(QApplication::translate("MainWindow", "Network", 0));
         label_4->setText(QApplication::translate("MainWindow", "Input:", 0));
         label_5->setText(QApplication::translate("MainWindow", "Output:", 0));

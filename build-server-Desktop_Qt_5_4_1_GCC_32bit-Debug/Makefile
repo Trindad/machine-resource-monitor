@@ -1045,42 +1045,7 @@ mainwindow.o: ../server/mainwindow.cpp ../server/mainwindow.h \
 		../../../../Qt/5.4/gcc/include/QtNetwork/qtcpsocket.h \
 		../../../../Qt/5.4/gcc/include/QtNetwork/qabstractsocket.h \
 		../../../../Qt/5.4/gcc/include/QtCore/QDebug \
-		ui_mainwindow.h \
-		../../../../Qt/5.4/gcc/include/QtCore/QVariant \
-		../../../../Qt/5.4/gcc/include/QtWidgets/QAction \
-		../../../../Qt/5.4/gcc/include/QtWidgets/qaction.h \
-		../../../../Qt/5.4/gcc/include/QtWidgets/qactiongroup.h \
-		../../../../Qt/5.4/gcc/include/QtWidgets/QApplication \
-		../../../../Qt/5.4/gcc/include/QtWidgets/qapplication.h \
-		../../../../Qt/5.4/gcc/include/QtCore/qcoreapplication.h \
-		../../../../Qt/5.4/gcc/include/QtCore/qeventloop.h \
-		../../../../Qt/5.4/gcc/include/QtWidgets/qdesktopwidget.h \
-		../../../../Qt/5.4/gcc/include/QtGui/qguiapplication.h \
-		../../../../Qt/5.4/gcc/include/QtGui/qinputmethod.h \
-		../../../../Qt/5.4/gcc/include/QtWidgets/QButtonGroup \
-		../../../../Qt/5.4/gcc/include/QtWidgets/qbuttongroup.h \
-		../../../../Qt/5.4/gcc/include/QtWidgets/QGroupBox \
-		../../../../Qt/5.4/gcc/include/QtWidgets/qgroupbox.h \
-		../../../../Qt/5.4/gcc/include/QtWidgets/qframe.h \
-		../../../../Qt/5.4/gcc/include/QtWidgets/QHeaderView \
-		../../../../Qt/5.4/gcc/include/QtWidgets/qheaderview.h \
-		../../../../Qt/5.4/gcc/include/QtWidgets/qabstractitemview.h \
-		../../../../Qt/5.4/gcc/include/QtWidgets/qabstractscrollarea.h \
-		../../../../Qt/5.4/gcc/include/QtCore/qabstractitemmodel.h \
-		../../../../Qt/5.4/gcc/include/QtCore/qitemselectionmodel.h \
-		../../../../Qt/5.4/gcc/include/QtWidgets/qabstractitemdelegate.h \
-		../../../../Qt/5.4/gcc/include/QtWidgets/qstyleoption.h \
-		../../../../Qt/5.4/gcc/include/QtWidgets/qabstractspinbox.h \
-		../../../../Qt/5.4/gcc/include/QtGui/qvalidator.h \
-		../../../../Qt/5.4/gcc/include/QtCore/qregularexpression.h \
-		../../../../Qt/5.4/gcc/include/QtWidgets/qslider.h \
-		../../../../Qt/5.4/gcc/include/QtWidgets/qabstractslider.h \
-		../../../../Qt/5.4/gcc/include/QtWidgets/qstyle.h \
-		../../../../Qt/5.4/gcc/include/QtWidgets/qtabbar.h \
-		../../../../Qt/5.4/gcc/include/QtWidgets/qrubberband.h \
-		../../../../Qt/5.4/gcc/include/QtWidgets/QLabel \
-		../../../../Qt/5.4/gcc/include/QtWidgets/qlabel.h \
-		../../../../Qt/5.4/gcc/include/QtWidgets/QWidget
+		ui_mainwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../server/mainwindow.cpp
 
 server.o: ../server/server.cpp ../server/server.h \
